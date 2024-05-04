@@ -1,0 +1,22 @@
+@startuml System-General-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle System_General_Usecase {
+    usecase "Automation" as Automation
+    usecase "Time counter (for contest)" as TimeCounter
+    usecase "Send email to list of users" as SendEmail
+    usecase "Automate other usecases" as AutomateOther
+}
+
+actor System
+
+' Actor - Usecase relation
+System -- Automation
+
+' Usecase relation
+Automation -- TimeCounter
+Automation -- SendEmail
+Automation -- AutomateOther
+
+@enduml

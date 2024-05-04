@@ -1,0 +1,35 @@
+@startuml Examinee-Auth-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Auth_Usecase {
+    usecase "Register" as Register
+    usecase "Enter user information" as EnterUserInformation
+    note bottom of EnterUserInformation
+        Enter full of name, birthdate, username,
+        email and password - all required.
+    end note
+
+    usecase "Captcha verification" as CaptchaVerification
+    usecase "Receive email verification" as SendEmailVerification
+
+    usecase "Login" as Login
+    usecase "Enter credentials" as EnterCredentials
+    usecase "Receive email notification" as SendEmailNotification
+}
+
+actor Examinee
+
+' Actor - Usecase relation
+Examinee --> Register
+Examinee --> Login
+
+' Usecase relation
+Register --> EnterUserInformation : <<Include>>
+Register --> CaptchaVerification : <<Include>>
+Register --> SendEmailVerification : <<Include>>
+
+Login --> EnterCredentials : <<Include>>
+Login --> SendEmailNotification : <<Include>>
+
+@enduml

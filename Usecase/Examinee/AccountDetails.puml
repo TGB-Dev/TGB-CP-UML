@@ -1,0 +1,37 @@
+@startuml Examinee-Account-Details-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Account_Details_Usecase {
+    usecase "Change user information" as ChangeUserInformation
+    usecase "Disable account" as DisableAccount
+    usecase "Enable account" as EnableAccount
+    usecase "Delete account" as DeleteAccount
+
+    usecase "Change password" as ChangePassword
+    usecase "Change email" as ChangeEmail
+    usecase "Change phone number" as ChangePhoneNumber
+    usecase "Change address" as ChangeAddress
+    usecase "Change name" as ChangeName
+    usecase "Change profile picture" as ChangeProfilePicture
+    usecase "Change birthdate" as ChangeBirthdate
+}
+
+actor Examinee
+
+' Actor - Usecase relation
+Examinee -- ChangeUserInformation
+Examinee -- DisableAccount
+Examinee -- EnableAccount
+Examinee -- DeleteAccount
+
+' Usecase relation
+ChangeUserInformation ..> ChangePassword : <<include>>
+ChangeUserInformation ..> ChangeEmail : <<include>>
+ChangeUserInformation ..> ChangePhoneNumber : <<include>>
+ChangeUserInformation ..> ChangeAddress : <<include>>
+ChangeUserInformation ..> ChangeName : <<include>>
+ChangeUserInformation ..> ChangeProfilePicture : <<include>>
+ChangeUserInformation ..> ChangeBirthdate : <<include>>
+
+@enduml

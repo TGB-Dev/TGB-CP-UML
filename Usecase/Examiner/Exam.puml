@@ -1,0 +1,79 @@
+@startuml Examiner-Question-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Exam_Usecase {
+    usecase "Create exam content" as CreateExam
+
+    usecase "Add name of exam" as AddExamName    
+    usecase "Choose question" as ChooseQuestion
+    usecase "Random order of small question in question" as RandomSmallQuestionInQuestion
+
+    usecase "Add section" as AddSection
+    usecase "Random order of question in section" as RandomQuestionInSection
+
+    usecase "Random order of section in exam" as RandomSectionInExam
+    usecase "Rules and regulation" as RulesAndRegulation
+
+    usecase "Settings" as Settings
+    usecase "Time settings" as TimeSettings
+
+    usecase "Fixed time" as FixedTime
+    note right of FixedTime
+        Must be set start time and end time.
+    end note
+
+    usecase "Window time" as WindowTime
+    note right of WindowTime
+        Must be set duration time.
+    end note
+
+    usecase "Ranking regulation" as RankingRegulation
+    note right of RankingRegulation 
+        Must be set public or private.
+    end note
+
+    usecase "Private for organization" as PrivateForOrganization
+    usecase "Show status of submission" as ShowStatusOfSubmission
+
+    usecase "Add user are not allowed to see the exam" as AddUserAreNotAllowedToSeeTheExam
+    usecase "Allow virtual exam" as AllowVirtualExam
+
+    usecase "Edit exam" as EditExam
+    usecase "Delete exam" as DeleteExam
+}
+
+actor Examiner
+
+' Actor - Usecase relation
+Examiner -- CreateExam
+Examiner -- EditExam
+Examiner -- DeleteExam
+Examiner -- Settings
+Examiner -- RulesAndRegulation
+
+' Usecase relation
+
+CreateExam ..> ChooseQuestion : <<Include>>
+CreateExam <.. AddExamName : <<Extend>>
+
+ChooseQuestion <.. RandomSmallQuestionInQuestion : <<Extend>>
+
+CreateExam <.. AddSection : <<Extend>>
+
+AddSection ..> ChooseQuestion : <<Include>>
+AddSection <.. RandomQuestionInSection : <<Extend>>
+
+CreateExam <.. RandomSectionInExam : <<Extend>>
+
+Settings ..> TimeSettings : <<Include>>
+Settings ..> RankingRegulation : <<Include>>
+Settings <.. PrivateForOrganization : <<Extend>>
+Settings <.. ShowStatusOfSubmission : <<Extend>>
+Settings <.. AddUserAreNotAllowedToSeeTheExam : <<Extend>>
+Settings <.. AllowVirtualExam : <<Extend>>
+
+TimeSettings <-- FixedTime : <<Generalization>>
+TimeSettings <-- WindowTime : <<Generalization>>
+
+@enduml

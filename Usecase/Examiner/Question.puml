@@ -1,0 +1,82 @@
+@startuml Examiner-Question-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Question_Usecase {
+    usecase "Add question" as AddQuestion
+    usecase "Add name of question" as AddName
+    usecase "Choose type of question" as ChooseType
+    usecase "Choose tag of question" as ChooseTag
+    usecase "Create tag of question" as CreateTag
+    usecase "Search tag of question" as SearchTag
+    usecase "Add question content" as AddContent
+    usecase "Add question answer" as AddAnswer
+    usecase "Add small question" as AddSmallQuestion
+    usecase "Can randomize order" as CanRandomOrder
+    usecase "Ignore case of answer" as IgnoreCase
+
+    note bottom of ChooseType
+        The examiner must choose one of each type of question
+        Multiple choice questions, short answer questions, text questions.
+    end note
+
+    note top of ChooseTag
+        The examiner must choose one of each tag of question
+        Math, Science, History, etc.
+    end note
+
+    note left of AddSmallQuestion
+        The examiner can add many small questions in one question
+        instead of adding one question.
+        Type of question, tag of question, content of question, answer of question
+        must be added for each small question.
+    end note
+
+    note bottom of AddAnswer
+        Except for text questions, the examiner must add the
+        answer of the question.
+        The examiner must add the answer fit with the type of
+        question or outline of the question.
+    end note
+
+    note bottom of CanRandomOrder
+        The examiner can randomize the order of the answers.
+    end note
+
+    usecase "Edit question" as EditQuestion
+    note top of EditQuestion
+        The examiner can edit the question.
+        All of the question's information can be edited.
+    end note
+
+    usecase "Delete question" as DeleteQuestion
+}
+
+actor Examiner
+
+' Actor - Usecase relation
+Examiner -- AddQuestion
+Examiner -- EditQuestion
+Examiner -- DeleteQuestion
+
+' Usecase relation
+AddQuestion ..> ChooseType : <<Include>>
+AddQuestion ..> ChooseTag : <<Include>>
+AddQuestion <.. AddContent : <<Extend>>
+AddQuestion ..> AddAnswer : <<Include>>
+AddQuestion <.. AddName : <<Extend>>
+
+AddQuestion <.left. AddSmallQuestion : <<Extend>>
+
+AddSmallQuestion ..> ChooseType : <<Include>>
+AddSmallQuestion <.. ChooseTag : <<Extend>>
+AddSmallQuestion ..> AddContent : <<Include>>
+AddSmallQuestion ..> AddAnswer : <<Include>>
+AddSmallQuestion <.right. CanRandomOrder : <<Extend>>
+
+ChooseTag <.. CreateTag : <<Extend>>
+ChooseTag ..> SearchTag : <<Include>>
+
+AddAnswer <.. IgnoreCase : <<Extend>>
+
+@enduml

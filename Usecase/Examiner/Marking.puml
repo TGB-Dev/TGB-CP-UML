@@ -1,0 +1,46 @@
+@startuml Examiner-Marking-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Marking_Usecase {
+    usecase "Checking plagiarism" as CheckingPlagiarism
+    note bottom of CheckingPlagiarism
+        Check the plagiarism of the student's submission
+    end note
+
+    usecase "Download key" as DownloadKey
+    note bottom of DownloadKey
+        Download the key for the assignment.
+        Each of key is the submission ID.
+    end note
+
+    usecase "Marking" as Marking
+    note bottom of Marking
+        Enter key of submission.
+    end note
+
+    usecase "Enter marks" as EnterMarks
+    note bottom of EnterMarks
+        Enter the marks for the submission.
+        Each of question has its own marks.
+        The system will calculate the total marks.
+    end note
+
+    usecase "Return marks" as ReturnMarks
+    usecase "Send email to student" as SendEmail
+}
+
+actor Examiner
+
+' Actor - Usecase relation
+Examiner -- CheckingPlagiarism
+Examiner -- DownloadKey
+Examiner -- Marking
+
+' Usecase relation
+Marking ..> EnterMarks : <<Include>>
+
+Marking ..> ReturnMarks : <<Include>>
+ReturnMarks ..> SendEmail : <<Include>>
+
+@enduml

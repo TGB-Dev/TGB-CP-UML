@@ -1,0 +1,30 @@
+@startuml Admin-General-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Admin_General_Usecase {
+    usecase "Full of usecase examiner and examinee" as FullOfUsecase
+    usecase "Full of privilege to create, edit, delete and view user information" as FullOfPrivilege
+    usecase "Full access to all of submission and data."  as FullOfAccess
+    usecase "Judge setting" as JudgeSetting
+    usecase "Edit link" as EditLink
+    usecase "Edit judge engine setting" as EditJudgeSetting
+    usecase "Create judge engine" as CreateJudgeEngine
+    usecase "Disperse judge engine" as DisperseJudgeEngine
+}
+
+actor Admin
+
+' Actor - Usecase relation
+Admin -- FullOfUsecase
+Admin -- FullOfPrivilege
+Admin -- FullOfAccess
+Admin -- JudgeSetting
+
+' Usecase relation
+JudgeSetting ..> EditLink : <<Include>>
+JudgeSetting ..> EditJudgeSetting : <<Include>>
+JudgeSetting ..> CreateJudgeEngine : <<Include>>
+JudgeSetting ..> DisperseJudgeEngine : <<Include>>
+
+@enduml

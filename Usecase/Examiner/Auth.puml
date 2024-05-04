@@ -1,0 +1,24 @@
+@startuml Examinee-Auth-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Auth_Usecase {
+    usecase "Login" as Login
+    usecase "Enter credentials" as EnterCredentials
+
+    usecase "Recieve account" as RecieveAccount
+    note bottom of RecieveAccount
+        Examiner account is recieved by the admin.
+    end note
+}
+
+actor Examiner
+
+' Actor - Usecase relation
+Examiner -- Login
+Examiner -- RecieveAccount
+
+' Usecase relation
+Login ..> EnterCredentials : <<Include>>
+
+@enduml

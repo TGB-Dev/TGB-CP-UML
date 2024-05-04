@@ -1,0 +1,61 @@
+@startuml Examinee-Contest-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Contest_Usecase {
+    usecase "Register contest" as RegisterContest
+    usecase "Accept terms and conditions" as AcceptTerms
+    usecase "Receive email announce contest was registered" as ReceiveEmailAnnounceContestRegistered
+    usecase "Receive email reminders of contest start time" as ReceiveEmailRemindersContestStart
+    usecase "Receive email announce contest started" as ReceiveEmailAnnounceContestStarted
+
+    usecase "Do contest" as DoContest
+    usecase "Do contest with the same format" as DoContestWithSameFormat
+    note right of DoContestWithSameFormat
+        - MCQs is the format that you will choose one of the options
+        - Short answer is the format that you will write the answer in a answer box (Limit words according to the question).
+        - Text is the format that you will write the answer in a text box (Eg: Essay, Paragraph, ...).
+    end note
+
+    usecase "Submit section early" as SubmitSectionEarly
+    note right of SubmitSectionEarly
+        Submit the section early helps you rank in the contest.
+        Allow re-submit the section before the contest end.
+    end note
+
+    usecase "Highlight and take note" as HighlightAndTakenote
+    usecase "Flag question which is not done yet" as FlagQuestionNotDoneYet
+    usecase "Flag question manually" as FlagQuestionManually
+    usecase "Clarification" as Clarification
+    usecase "Full access to the contest before the contest end" as FullAccessToContestBeforeEnd
+    usecase "Count a breach of the rules" as CountBreachOfTheRules
+    note right of CountBreachOfTheRules
+        Count the number of times that you breach the rules
+        and save it to the database.
+    end note
+    usecase "Submit" as Submit
+}
+
+actor Examinee
+
+' Actor - Usecase relation
+Examinee -- RegisterContest
+Examinee -- DoContest
+
+' Usecase relation
+RegisterContest ..> AcceptTerms : <<Include>>
+RegisterContest ..> ReceiveEmailAnnounceContestRegistered : <<Include>>
+RegisterContest ..> ReceiveEmailRemindersContestStart : <<Include>>
+RegisterContest ..> ReceiveEmailAnnounceContestStarted : <<Include>>
+
+DoContest ..> DoContestWithSameFormat : <<Include>>
+DoContest <.. SubmitSectionEarly : <<Extend>>
+DoContest <.. HighlightAndTakenote : <<Extend>>
+DoContest ..> FlagQuestionNotDoneYet : <<Include>>
+DoContest <.. FlagQuestionManually : <<Extend>>
+DoContest <.. Clarification : <<Extend>>
+DoContest ..> FullAccessToContestBeforeEnd : <<Include>>
+DoContest ..> CountBreachOfTheRules : <<Include>>
+DoContest ..> Submit : <<Include>>
+
+@enduml

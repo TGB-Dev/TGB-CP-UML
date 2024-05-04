@@ -1,0 +1,22 @@
+@startuml Examiner-Clarifications-Usecase
+left to right direction
+skinparam linetype polyline
+
+rectangle Clarifications_Usecase {
+    usecase "Receive Clarification Request" as ReceiveClarificationRequest
+    usecase "Provide Clarification" as ProvideClarification
+
+    usecase "Send email to professional committee" as SendEmailToProfessionalCommittee
+    usecase "Send email to examinee" as SendEmailToExaminee
+}
+
+actor Examiner
+' Actor - Usecase relation
+Examiner -- ReceiveClarificationRequest
+Examiner -- ProvideClarification
+
+' Usecase relation
+ReceiveClarificationRequest ..> SendEmailToProfessionalCommittee : <<Include>>
+ProvideClarification ..> SendEmailToExaminee : <<Include>>
+
+@enduml
