@@ -1,0 +1,369 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class active_status_category {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   description: varchar(255)
+   id: int(11)
+}
+class attachment {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   type: int(11)
+   path: text
+   id: int(11)
+}
+class attachment_category {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   description: varchar(255)
+   id: int(11)
+}
+class blog_post {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   title: text
+   content: text
+   slug: varchar(255)
+   global_post: tinyint(4)
+   visible: tinyint(4)
+   publish_on: datetime
+   score: int(11)
+   organization_id: int(11)
+   id: int(11)
+}
+class blog_post_authors_user {
+   blogPostId: int(11)
+   userId: int(11)
+}
+class blog_vote {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   is_up_vote: tinyint(4)
+   blog_post_id: int(11)
+   user_id: int(11)
+   id: int(11)
+}
+class clarification {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   title: varchar(255)
+   content: text
+   question_id: int(11)
+   id: int(11)
+}
+class contest {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   pre_content: text
+   time_setting: int(11)
+   start_time: datetime
+   end_time: datetime
+   duration: int(11)
+   public_ranking: tinyint(4)
+   public_contest: tinyint(4)
+   be_rated: tinyint(4)
+   virtual_join: tinyint(4)
+   show_corrected_question_status: tinyint(4)
+   max_attempts: int(11)
+   id: int(11)
+}
+class contest_examiners_user {
+   contestId: int(11)
+   userId: int(11)
+}
+class contest_hidden_from_organizations_organization {
+   contestId: int(11)
+   organizationId: int(11)
+}
+class contest_hidden_from_users_user {
+   contestId: int(11)
+   userId: int(11)
+}
+class contest_participant {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   uuid: uuid
+   virtual_join: tinyint(4)
+   score: int(11)
+   user_start_at: datetime(6)
+   user_id: int(11)
+   contest_id: int(11)
+   id: int(11)
+}
+class contest_registered_users_user {
+   contestId: int(11)
+   userId: int(11)
+}
+class contest_visible_to_organizations_organization {
+   contestId: int(11)
+   organizationId: int(11)
+}
+class contest_visible_to_users_user {
+   contestId: int(11)
+   userId: int(11)
+}
+class examination {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   subject: int(11)
+   many_sections: tinyint(4)
+   id: int(11)
+}
+class migrations {
+   timestamp: bigint(20)
+   name: varchar(255)
+   id: int(11)
+}
+class organization {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   slug: varchar(255)
+   short_name: varchar(255)
+   is_open: tinyint(4)
+   is_unlisted: tinyint(4)
+   description: text
+   logo_url: text
+   slots: int(11)
+   member_count: int(11)
+   id: int(11)
+}
+class organization_admins_user {
+   organizationId: int(11)
+   userId: int(11)
+}
+class organization_members_user {
+   organizationId: int(11)
+   userId: int(11)
+}
+class permission {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   code: varchar(255)
+   description: varchar(255)
+   id: int(11)
+}
+class question {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   title: varchar(255)
+   be_randomized: tinyint(4)
+   many_sub_questions: tinyint(4)
+   id: int(11)
+}
+class question_type_category {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   description: varchar(255)
+   id: int(11)
+}
+class section {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   examination_id: int(11)
+   id: int(11)
+}
+class section_questions_question {
+   sectionId: int(11)
+   questionId: int(11)
+}
+class subject_category {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   description: varchar(255)
+   id: int(11)
+}
+class submission {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   answer: text
+   grade: int(11)
+   status: int(11)
+   user_id: int(11)
+   subquestion_id: int(11)
+   contest_id: int(11)
+   id: int(11)
+}
+class submission_status_category {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   description: varchar(255)
+   id: int(11)
+}
+class submitted_question {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   corrected: tinyint(4)
+   question_id: int(11)
+   user_id: int(11)
+   id: int(11)
+}
+class subquestion {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   content: text
+   order: int(11)
+   type: int(11)
+   question_id: int(11)
+   id: int(11)
+}
+class subquestion_answer {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   answer: text
+   subquestion_id: int(11)
+   id: int(11)
+}
+class subquestion_tags_tag {
+   subquestionId: int(11)
+   tagId: int(11)
+}
+class tag {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   code: varchar(255)
+   tag_group_id: int(11)
+   id: int(11)
+}
+class tag_group {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   code: varchar(255)
+   id: int(11)
+}
+class time_category {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   description: varchar(255)
+   id: int(11)
+}
+class user {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   username: varchar(255)
+   password: varchar(255)
+   timezone: varchar(255)
+   display_name: varchar(255)
+   self_description: longtext
+   date_of_birth: datetime
+   logo_url: varchar(255)
+   status: int(11)
+   id: int(11)
+}
+class user_comment {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   content: text
+   score: int(11)
+   user_id: int(11)
+   blog_post_id: int(11)
+   parent_id: int(11)
+   id: int(11)
+}
+class user_comment_vote {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   is_up_vote: tinyint(4)
+   user_comment_id: int(11)
+   user_id: int(11)
+   id: int(11)
+}
+class user_email {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   email: varchar(255)
+   primary: tinyint(4)
+   verified: tinyint(4)
+   user_id: int(11)
+   id: int(11)
+}
+class user_permission {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   value: varchar(255)
+   user_id: int(11)
+   id: int(11)
+}
+class user_session {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   info: varchar(255)
+   ip: varchar(255)
+   location: varchar(255)
+   access_token: varchar(255)
+   refresh_token: varchar(255)
+   last_active: datetime(6)
+   user_id: int(11)
+   id: int(11)
+}
+class verification_token_type_category {
+   created_at: datetime(6)
+   updated_at: datetime(6)
+   name: varchar(255)
+   description: varchar(255)
+   id: int(11)
+}
+
+blog_post                                       -[#595959,plain]-^  organization                                   : "organization_id:id"
+blog_post_authors_user                          -[#595959,plain]-^  blog_post                                      : "blogPostId:id"
+blog_post_authors_user                          -[#595959,plain]-^  user                                           : "userId:id"
+blog_vote                                       -[#595959,plain]-^  blog_post                                      : "blog_post_id:id"
+blog_vote                                       -[#595959,plain]-^  user                                           : "user_id:id"
+clarification                                   -[#595959,plain]-^  question                                       : "question_id:id"
+contest_examiners_user                          -[#595959,plain]-^  contest                                        : "contestId:id"
+contest_examiners_user                          -[#595959,plain]-^  user                                           : "userId:id"
+contest_hidden_from_organizations_organization  -[#595959,plain]-^  contest                                        : "contestId:id"
+contest_hidden_from_organizations_organization  -[#595959,plain]-^  organization                                   : "organizationId:id"
+contest_hidden_from_users_user                  -[#595959,plain]-^  contest                                        : "contestId:id"
+contest_hidden_from_users_user                  -[#595959,plain]-^  user                                           : "userId:id"
+contest_participant                             -[#595959,plain]-^  contest                                        : "contest_id:id"
+contest_participant                             -[#595959,plain]-^  user                                           : "user_id:id"
+contest_registered_users_user                   -[#595959,plain]-^  contest                                        : "contestId:id"
+contest_registered_users_user                   -[#595959,plain]-^  user                                           : "userId:id"
+contest_visible_to_organizations_organization   -[#595959,plain]-^  contest                                        : "contestId:id"
+contest_visible_to_organizations_organization   -[#595959,plain]-^  organization                                   : "organizationId:id"
+contest_visible_to_users_user                   -[#595959,plain]-^  contest                                        : "contestId:id"
+contest_visible_to_users_user                   -[#595959,plain]-^  user                                           : "userId:id"
+organization_admins_user                        -[#595959,plain]-^  organization                                   : "organizationId:id"
+organization_admins_user                        -[#595959,plain]-^  user                                           : "userId:id"
+organization_members_user                       -[#595959,plain]-^  organization                                   : "organizationId:id"
+organization_members_user                       -[#595959,plain]-^  user                                           : "userId:id"
+section                                         -[#595959,plain]-^  examination                                    : "examination_id:id"
+section_questions_question                      -[#595959,plain]-^  question                                       : "questionId:id"
+section_questions_question                      -[#595959,plain]-^  section                                        : "sectionId:id"
+submission                                      -[#595959,plain]-^  contest                                        : "contest_id:id"
+submission                                      -[#595959,plain]-^  subquestion                                    : "subquestion_id:id"
+submission                                      -[#595959,plain]-^  user                                           : "user_id:id"
+submitted_question                              -[#595959,plain]-^  question                                       : "question_id:id"
+submitted_question                              -[#595959,plain]-^  user                                           : "user_id:id"
+subquestion                                     -[#595959,plain]-^  question                                       : "question_id:id"
+subquestion_answer                              -[#595959,plain]-^  subquestion                                    : "subquestion_id:id"
+subquestion_tags_tag                            -[#595959,plain]-^  subquestion                                    : "subquestionId:id"
+subquestion_tags_tag                            -[#595959,plain]-^  tag                                            : "tagId:id"
+tag                                             -[#595959,plain]-^  tag_group                                      : "tag_group_id:id"
+user_comment                                    -[#595959,plain]-^  blog_post                                      : "blog_post_id:id"
+user_comment                                    -[#595959,plain]-^  user                                           : "user_id:id"
+user_comment                                    -[#595959,plain]-^  user_comment                                   : "parent_id:id"
+user_comment_vote                               -[#595959,plain]-^  user                                           : "user_id:id"
+user_comment_vote                               -[#595959,plain]-^  user_comment                                   : "user_comment_id:id"
+user_email                                      -[#595959,plain]-^  user                                           : "user_id:id"
+user_permission                                 -[#595959,plain]-^  user                                           : "user_id:id"
+user_session                                    -[#595959,plain]-^  user                                           : "user_id:id"
+@enduml
